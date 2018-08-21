@@ -49,5 +49,5 @@ public class Ssn {
         }
         return SsnValidationStatus.VALID_SSN;
     }
-    
+
 }
