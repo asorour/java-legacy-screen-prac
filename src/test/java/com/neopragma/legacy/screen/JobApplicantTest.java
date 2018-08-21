@@ -104,25 +104,25 @@ public class JobApplicantTest {
 	@Test
 	public void ssnWithDashesInWrongPlaces() {
 		jobApplicant.setSsn("12-3456-789");
-		assertEquals(1, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 
 	@Test
 	public void validSsnWithDashes() {
 		jobApplicant.setSsn("123-45-6789");
-		assertEquals(0, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.VALID_SSN, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnIsTooShort() {
 		jobApplicant.setSsn("12345678");
-		assertEquals(1, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnIsTooLong() {
 		jobApplicant.setSsn("1234567890");
-		assertEquals(1, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 	
 	@Test

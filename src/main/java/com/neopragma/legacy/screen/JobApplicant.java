@@ -18,7 +18,9 @@ import org.apache.http.impl.client.HttpClients;
  * Job applicant class.
  */
 public class JobApplicant {
-	
+
+	public static final int INVALID_SSN_LENGTH = 1;
+	public static final int VALID_SSN = 0;
 	private String firstName = null;
 	private String middleName = null;
 	private String lastName = null;
@@ -90,7 +92,7 @@ public class JobApplicant {
 
 	public int validateSsn() {
 		if ( !ssn.matches("\\d{9}") ) {
-			return 1;
+			return INVALID_SSN_LENGTH;
 		}
 		if ( "000".equals(ssn.substring(0,3)) || 
 			 "666".equals(ssn.substring(0,3)) ||
@@ -105,7 +107,7 @@ public class JobApplicant {
 				return 4;
 			}
 		}
-		return 0;
+		return VALID_SSN;
 	}
 
 	public void setZipCode(String zipCode) throws URISyntaxException, IOException {
