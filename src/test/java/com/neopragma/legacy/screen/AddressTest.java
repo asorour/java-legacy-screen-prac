@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 public class AddressTest {
 
     private Address address;
-    
+
     @Before
     public void beforeEach() {
         address = new Address();

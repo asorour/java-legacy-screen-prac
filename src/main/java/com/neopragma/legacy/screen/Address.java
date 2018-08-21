@@ -20,16 +20,15 @@ public class Address {
 
     public void setZipCode(String zipCode) throws URISyntaxException, IOException {
         this.zipCode = zipCode;
-        // Use a service to look up the city and state based on zip code.
-        // Save the returned city and state if content length is greater than zero.
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.zip-codes.com")
-                .setPath("/search.asp")
-                .setParameter("fld-zip", this.zipCode)
-                .setParameter("selectTab", "0")
-                .setParameter("srch-type", "city")
-                .build();
+        LookupZipCodeAndSetCityAndState(zipCode);
+
+    }
+
+    private void LookupZipCodeAndSetCityAndState(String zipCode) throws URISyntaxException, IOException {
+        city = "";
+        state = "";
+
+        URI uri = getUri(zipCode);
         HttpGet request = new HttpGet(uri);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = httpclient.execute(request);
@@ -53,13 +52,21 @@ public class Address {
                 city = result.substring(contentOffset, stateOffset);
                 stateOffset += 1;
                 state = result.substring(stateOffset, stateOffset+2);
-            } else {
-                city = "";
-                state = "";
             }
         } finally {
             response.close();
         }
+    }
+
+    private URI getUri(String zipCode) throws URISyntaxException {
+        return new URIBuilder()
+                    .setScheme("http")
+                    .setHost("www.zip-codes.com")
+                    .setPath("/search.asp")
+                    .setParameter("fld-zip", zipCode)
+                    .setParameter("selectTab", "0")
+                    .setParameter("srch-type", "city")
+                    .build();
     }
 
     public String getCity() {
