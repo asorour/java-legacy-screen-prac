@@ -21,6 +21,8 @@ public class JobApplicant {
 
 	public static final int INVALID_SSN_LENGTH = 1;
 	public static final int VALID_SSN = 0;
+	public static final int INVALID_SSN_AREA = 2;
+	public static final int SSN_STARTS_WITH_NINE = 5;
 	private String firstName = null;
 	private String middleName = null;
 	private String lastName = null;
@@ -95,9 +97,11 @@ public class JobApplicant {
 			return INVALID_SSN_LENGTH;
 		}
 		if ( "000".equals(ssn.substring(0,3)) || 
-			 "666".equals(ssn.substring(0,3)) ||
-			 "9".equals(ssn.substring(0,1)) ) {
-			return 2;
+			 "666".equals(ssn.substring(0,3)) ) {
+			return INVALID_SSN_AREA;
+		}
+		if ( "9".equals(ssn.substring(0,1)) ) {
+			return SSN_STARTS_WITH_NINE;
 		}
 		if ( "0000".equals(ssn.substring(5)) ) {
 			return 3;

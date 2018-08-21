@@ -128,19 +128,19 @@ public class JobApplicantTest {
 	@Test
 	public void ssnAreaNumberIs000() {
 		jobApplicant.setSsn("000223333");
-		assertEquals(2, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_AREA, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnAreaNumberIs666() {
 		jobApplicant.setSsn("666223333");
-		assertEquals(2, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_AREA, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnAreaNumberStartsWith9() {
 		jobApplicant.setSsn("900223333");
-		assertEquals(2, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.SSN_STARTS_WITH_NINE, jobApplicant.validateSsn());
 	}
 	
 	@Test
