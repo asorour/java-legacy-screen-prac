@@ -98,4 +98,8 @@ public class Address {
     public String getZipCode() {
         return zipCode;
     }
+
+    public String ToString() {
+        return String.format("%s, %s %s", city, state, zipCode);
+    }
 }

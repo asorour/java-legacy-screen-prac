@@ -19,20 +19,9 @@ public class JobApplicant {
 	private Ssn ssn;
 	private Address address;
 
-//	public void add(String firstName,
-//			       String middleName,
-//			       String lastName,
-//			       String ssn,
-//			       String zipCode) throws URISyntaxException, IOException {
-//		setName(firstName, middleName, lastName);
-//		setSsn(ssn);
-//		setAddressBasedOnZipCode(zipCode);
-//		save();
-//	}
-
 	private void save() {
 		//TODO save information to a database
-		System.out.println("Saving to database: " + name.formatLastNameFirst() + " with address: " + address.getCity() + " , " + address.getState());
+		System.out.println("Saving to database: " + name.formatLastNameFirst() + " with address: " + address.ToString());
 	}
 	
 	public static void main(String[] args) throws URISyntaxException, IOException {

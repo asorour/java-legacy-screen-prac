@@ -14,6 +14,7 @@ public class AddressTest {
         address = new Address("75001");
         assertEquals("Addison", address.getCity());
         assertEquals("TX", address.getState());
+        assertEquals("75001", address.getZipCode());
     }
 
     @Test
@@ -21,5 +22,6 @@ public class AddressTest {
         address = new Address("856585578");
         assertEquals("Marana", address.getCity());
         assertEquals("AZ", address.getState());
+        assertEquals("856585578", address.getZipCode());
     }
 }
