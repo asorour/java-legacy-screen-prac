@@ -19,12 +19,7 @@ import org.apache.http.impl.client.HttpClients;
  */
 public class JobApplicant {
 
-	public static final int INVALID_SSN_LENGTH = 1;
-	public static final int VALID_SSN = 0;
-	public static final int INVALID_SSN_AREA = 2;
-	public static final int SSN_STARTS_WITH_NINE = 5;
-	public static final int INVALID_SSN_SERIAL = 3;
-	public static final int SSN_SPECIAL_CASE = 4;
+
 	private String firstName = null;
 	private String middleName = null;
 	private String lastName = null;
@@ -94,26 +89,26 @@ public class JobApplicant {
 		return sb.toString();
 	}
 
-	public int validateSsn() {
+	public SsnValidationStatus validateSsn() {
 		if ( !ssn.matches("\\d{9}") ) {
-			return INVALID_SSN_LENGTH;
+			return SsnValidationStatus.INVALID_SSN_LENGTH;
 		}
 		if ( "000".equals(ssn.substring(0,3)) || 
 			 "666".equals(ssn.substring(0,3)) ) {
-			return INVALID_SSN_AREA;
+			return SsnValidationStatus.INVALID_SSN_AREA;
 		}
 		if ( "9".equals(ssn.substring(0,1)) ) {
-			return SSN_STARTS_WITH_NINE;
+			return SsnValidationStatus.SSN_STARTS_WITH_NINE;
 		}
 		if ( "0000".equals(ssn.substring(5)) ) {
-			return INVALID_SSN_SERIAL;
+			return SsnValidationStatus.INVALID_SSN_SERIAL;
 		}
 		for (int i = 0 ; i < specialCases.length ; i++ ) {
 			if ( ssn.equals(specialCases[i]) ) {
-				return SSN_SPECIAL_CASE;
+				return SsnValidationStatus.SSN_SPECIAL_CASE;
 			}
 		}
-		return VALID_SSN;
+		return SsnValidationStatus.VALID_SSN;
 	}
 
 	public void setZipCode(String zipCode) throws URISyntaxException, IOException {

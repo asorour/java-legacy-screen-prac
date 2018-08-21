@@ -98,67 +98,67 @@ public class JobApplicantTest {
 	@Test
 	public void validSsnWithNoDashes() {
 		jobApplicant.setSsn("123456789");
-		assertEquals(0, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.VALID_SSN, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnWithDashesInWrongPlaces() {
 		jobApplicant.setSsn("12-3456-789");
-		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 
 	@Test
 	public void validSsnWithDashes() {
 		jobApplicant.setSsn("123-45-6789");
-		assertEquals(jobApplicant.VALID_SSN, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.VALID_SSN, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnIsTooShort() {
 		jobApplicant.setSsn("12345678");
-		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnIsTooLong() {
 		jobApplicant.setSsn("1234567890");
-		assertEquals(jobApplicant.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_LENGTH, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnAreaNumberIs000() {
 		jobApplicant.setSsn("000223333");
-		assertEquals(jobApplicant.INVALID_SSN_AREA, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_AREA, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnAreaNumberIs666() {
 		jobApplicant.setSsn("666223333");
-		assertEquals(jobApplicant.INVALID_SSN_AREA, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_AREA, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnAreaNumberStartsWith9() {
 		jobApplicant.setSsn("900223333");
-		assertEquals(jobApplicant.SSN_STARTS_WITH_NINE, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.SSN_STARTS_WITH_NINE, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void ssnSerialNumberIs0000() {
 		jobApplicant.setSsn("111220000");
-		assertEquals(jobApplicant.INVALID_SSN_SERIAL, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.INVALID_SSN_SERIAL, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void itRejectsSsn078051120() {
 		jobApplicant.setSsn("078051120");
-		assertEquals(jobApplicant.SSN_SPECIAL_CASE, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.SSN_SPECIAL_CASE, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void itRejectsSsn219099999() {
 		jobApplicant.setSsn("219099999");
-		assertEquals(4, jobApplicant.validateSsn());
+		assertEquals(SsnValidationStatus.SSN_SPECIAL_CASE, jobApplicant.validateSsn());
 	}
 	
 	@Test
