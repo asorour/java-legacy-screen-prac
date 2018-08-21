@@ -36,22 +36,24 @@ public class JobApplicant {
 			
 			firstName = getInput(scanner, FIRST_NAME_PROMPT);
             if (firstName.equals(QUIT_MESSAGE)) {
-            	scanner.close();
-            	System.out.println(BYE_BYE_MESSAGE);
-            	break;
-            }
-            
-            middleName = getInput(scanner, MIDDLE_NAME_PROMPT);
-            lastName = getInput(scanner, LAST_NAME_PROMPT);
-            ssn = getInput(scanner, SSN_PROMPT);
-            zipCode = getInput(scanner, ZIP_CODE_PROMPT);
+            	done = true;
+            }else {
 
-			jobApplicant.setName(firstName, middleName, lastName);
-            jobApplicant.setSsn(ssn);
-            jobApplicant.setAddressBasedOnZipCode(zipCode);
+				middleName = getInput(scanner, MIDDLE_NAME_PROMPT);
+				lastName = getInput(scanner, LAST_NAME_PROMPT);
+				ssn = getInput(scanner, SSN_PROMPT);
+				zipCode = getInput(scanner, ZIP_CODE_PROMPT);
 
-            jobApplicant.save();
+				jobApplicant.setName(firstName, middleName, lastName);
+				jobApplicant.setSsn(ssn);
+				jobApplicant.setAddressBasedOnZipCode(zipCode);
+
+				jobApplicant.save();
+			}
 		}
+
+		scanner.close();
+		System.out.println(BYE_BYE_MESSAGE);
 	}
 
 	private static String getInput(Scanner scanner, String prompt) {
