@@ -1,15 +1,5 @@
 package com.neopragma.legacy.screen;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.neopragma.legacy.screen.JobApplicant;
-
 /**
  * Automated unit checks for the base version of the JobApplicant application.
  * This version of the code contains a number of code smells that may point to

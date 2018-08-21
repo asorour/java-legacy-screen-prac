@@ -29,11 +29,7 @@ public class JobApplicant {
 		boolean done = false;
 		Scanner scanner = new Scanner(System.in);
 
-		String firstName;
-		String middleName;
-		String lastName;
-		String ssn;
-		String zipCode;
+		String firstName, middleName, lastName, ssn, zipCode;
 
 		while (!done) {
 			System.out.println(PROMPT_PLEASE_ENTER_INFO_ABOUT_A_JOB_CANDIDATE_OR_QUIT_TO_QUIT);
