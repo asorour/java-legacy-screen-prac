@@ -13,14 +13,28 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class Address {
+    public static final String CONTENT_ZIP_CODE_PREFIX = " content=\"Zip Code ";
+    public static final String META_PREFIX = "<meta ";
+    public static final int CONTENT_ZIP_CODE_PREFIX_LENGTH = 19;
+    public static final String SPACE_HYPHEN_SPACE = " - ";
+    public static final String STATE_PREFIX = " ";
+    public static final int SPACE_HYPHEN_SPACE_LENGTH = 3;
+    public static final int STATE_PREFIX_LENGTH = 1;
+    public static final int STATE_ABBREVIATION_LENGTH = 2;
+
     private String zipCode;
     private String city;
     private String state;
 
-    public void setZipCode(String zipCode) throws URISyntaxException, IOException {
-        this.zipCode = zipCode;
-        LookupZipCodeAndSetCityAndState(zipCode);
-
+    public Address(String zipCode) {
+        try {
+            LookupZipCodeAndSetCityAndState(zipCode);
+            this.zipCode = zipCode;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void LookupZipCodeAndSetCityAndState(String zipCode) throws URISyntaxException, IOException {
@@ -35,23 +49,26 @@ public class Address {
             HttpEntity entity = response.getEntity();
 
             if (entity != null) {
-                long len = entity.getContentLength();
                 BufferedReader rd = new BufferedReader(
                         new InputStreamReader(entity.getContent()));
                 StringBuffer result = new StringBuffer();
-                String line = "";
+                String line;
                 while ((line = rd.readLine()) != null) {
                     result.append(line);
                 }
-                int metaOffset = result.indexOf("<meta ");
-                int contentOffset = result.indexOf(" content=\"Zip Code ", metaOffset);
-                contentOffset += 19;
-                contentOffset = result.indexOf(" - ", contentOffset);
-                contentOffset += 3;
-                int stateOffset = result.indexOf(" ", contentOffset);
+                int metaOffset = result.indexOf(META_PREFIX);
+
+                int contentOffset = result.indexOf(CONTENT_ZIP_CODE_PREFIX, metaOffset);
+                contentOffset += CONTENT_ZIP_CODE_PREFIX_LENGTH;
+
+                contentOffset = result.indexOf(SPACE_HYPHEN_SPACE, contentOffset);
+                contentOffset += SPACE_HYPHEN_SPACE_LENGTH;
+
+                int stateOffset = result.indexOf(STATE_PREFIX, contentOffset);
                 city = result.substring(contentOffset, stateOffset);
-                stateOffset += 1;
-                state = result.substring(stateOffset, stateOffset+2);
+
+                stateOffset += STATE_PREFIX_LENGTH;
+                state = result.substring(stateOffset, stateOffset + STATE_ABBREVIATION_LENGTH);
             }
         } finally {
             response.close();
@@ -78,4 +95,7 @@ public class Address {
         return state;
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
 }

@@ -1,22 +1,9 @@
 package com.neopragma.legacy.screen;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
-/**
- * Job applicant class.
- */
 public class JobApplicant {
 
 	private Name name;
@@ -30,12 +17,8 @@ public class JobApplicant {
 			       String zipCode) throws URISyntaxException, IOException {
 		setName(firstName, middleName, lastName);
 		setSsn(ssn);
-		address.setZipCode(zipCode);
+		setZipCode(zipCode);
 		save();
-	}
-
-	private void setName(String firstName, String middleName, String lastName) {
-		name = new Name (firstName, middleName, lastName);
 	}
 
 	private void save() {
@@ -77,14 +60,16 @@ public class JobApplicant {
 		}
 	}
 
-	private void setZipCode(String zipCode) throws IOException, URISyntaxException {
-		address.setZipCode(zipCode);
+	private void setName(String firstName, String middleName, String lastName) {
+		name = new Name (firstName, middleName, lastName);
 	}
 
 	private void setSsn(String ssnString) {
-
 		ssn = new Ssn(ssnString);
+	}
 
+	private void setZipCode(String zipCode) throws IOException, URISyntaxException {
+		address = new Address(zipCode);
 	}
 
 }
