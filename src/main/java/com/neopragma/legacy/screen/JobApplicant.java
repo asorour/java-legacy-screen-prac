@@ -23,6 +23,8 @@ public class JobApplicant {
 	private String firstName = null;
 	private String middleName = null;
 	private String lastName = null;
+
+	private Ssn ssn;
 	
 	public void setName(String firstName, String middleName, String lastName) {
 		this.firstName = firstName == null ? "" : firstName;
@@ -62,54 +64,11 @@ public class JobApplicant {
 		}
 	}
 	
-	private String ssn;
-	
-	private String[] specialCases = new String[] {
-	    "219099999", "078051120"
-	};
-	
+
 	private String zipCode;    
 	private String city;
 	private String state;
 
-	public void setSsn(String ssn) {
-		if ( ssn.matches("(\\d{3}-\\d{2}-\\d{4}|\\d{9})") ) {
-  		    this.ssn = ssn.replaceAll("-", "");
-		} else {
-  		    this.ssn = "";
-		}    
-	}
-	
-	public String formatSsn() {
-		StringBuilder sb = new StringBuilder(ssn.substring(0,3));
-		sb.append("-");
-		sb.append(ssn.substring(3,5));
-		sb.append("-");
-		sb.append(ssn.substring(5));
-		return sb.toString();
-	}
-
-	public SsnValidationStatus validateSsn() {
-		if ( !ssn.matches("\\d{9}") ) {
-			return SsnValidationStatus.INVALID_SSN_LENGTH;
-		}
-		if ( "000".equals(ssn.substring(0,3)) || 
-			 "666".equals(ssn.substring(0,3)) ) {
-			return SsnValidationStatus.INVALID_SSN_AREA;
-		}
-		if ( "9".equals(ssn.substring(0,1)) ) {
-			return SsnValidationStatus.SSN_STARTS_WITH_NINE;
-		}
-		if ( "0000".equals(ssn.substring(5)) ) {
-			return SsnValidationStatus.INVALID_SSN_SERIAL;
-		}
-		for (int i = 0 ; i < specialCases.length ; i++ ) {
-			if ( ssn.equals(specialCases[i]) ) {
-				return SsnValidationStatus.SSN_SPECIAL_CASE;
-			}
-		}
-		return SsnValidationStatus.VALID_SSN;
-	}
 
 	public void setZipCode(String zipCode) throws URISyntaxException, IOException {
 		this.zipCode = zipCode;
@@ -212,5 +171,11 @@ public class JobApplicant {
             jobApplicant.save();
 		}
 	}
-	
+
+	private void setSsn(String ssnString) {
+
+		ssn = new Ssn(ssnString);
+
+	}
+
 }
