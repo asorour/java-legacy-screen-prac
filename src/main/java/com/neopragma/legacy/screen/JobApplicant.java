@@ -30,11 +30,13 @@ public class JobApplicant {
 		JobApplicant jobApplicant = new JobApplicant();
 		boolean done = false;
 		Scanner scanner = new Scanner(System.in);
-		String firstName = "";
-		String middleName = "";
-		String lastName = "";
-		String ssn = "";
-		String zipCode = "";
+
+		String firstName;
+		String middleName;
+		String lastName;
+		String ssn;
+		String zipCode;
+
 		while (!done) {
 			System.out.println("Please enter info about a job candidate or 'quit' to quit");
 			System.out.println("First name?");
