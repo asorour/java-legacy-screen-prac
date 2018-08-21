@@ -146,13 +146,13 @@ public class JobApplicantTest {
 	@Test
 	public void ssnSerialNumberIs0000() {
 		jobApplicant.setSsn("111220000");
-		assertEquals(3, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.INVALID_SSN_SERIAL, jobApplicant.validateSsn());
 	}
 	
 	@Test
 	public void itRejectsSsn078051120() {
 		jobApplicant.setSsn("078051120");
-		assertEquals(4, jobApplicant.validateSsn());
+		assertEquals(jobApplicant.SSN_SPECIAL_CASE, jobApplicant.validateSsn());
 	}
 	
 	@Test

@@ -23,6 +23,8 @@ public class JobApplicant {
 	public static final int VALID_SSN = 0;
 	public static final int INVALID_SSN_AREA = 2;
 	public static final int SSN_STARTS_WITH_NINE = 5;
+	public static final int INVALID_SSN_SERIAL = 3;
+	public static final int SSN_SPECIAL_CASE = 4;
 	private String firstName = null;
 	private String middleName = null;
 	private String lastName = null;
@@ -104,11 +106,11 @@ public class JobApplicant {
 			return SSN_STARTS_WITH_NINE;
 		}
 		if ( "0000".equals(ssn.substring(5)) ) {
-			return 3;
+			return INVALID_SSN_SERIAL;
 		}
 		for (int i = 0 ; i < specialCases.length ; i++ ) {
 			if ( ssn.equals(specialCases[i]) ) {
-				return 4;
+				return SSN_SPECIAL_CASE;
 			}
 		}
 		return VALID_SSN;
