@@ -20,6 +20,11 @@ local.properties
 .settings/
 .loadpath
 
+# intellij
+.gradle
+.idea
+/build
+
 # External tool builders
 .externalToolBuilders/
 
