@@ -19,20 +19,20 @@ public class JobApplicant {
 	private Ssn ssn;
 	private Address address;
 
-	public void add(String firstName,
-			       String middleName,
-			       String lastName,
-			       String ssn,
-			       String zipCode) throws URISyntaxException, IOException {
-		setName(firstName, middleName, lastName);
-		setSsn(ssn);
-		setZipCode(zipCode);
-		save();
-	}
+//	public void add(String firstName,
+//			       String middleName,
+//			       String lastName,
+//			       String ssn,
+//			       String zipCode) throws URISyntaxException, IOException {
+//		setName(firstName, middleName, lastName);
+//		setSsn(ssn);
+//		setAddressBasedOnZipCode(zipCode);
+//		save();
+//	}
 
 	private void save() {
 		//TODO save information to a database
-		System.out.println("Saving to database: " + name.formatLastNameFirst());
+		System.out.println("Saving to database: " + name.formatLastNameFirst() + " with address: " + address.getCity() + " , " + address.getState());
 	}
 	
 	public static void main(String[] args) throws URISyntaxException, IOException {
@@ -63,7 +63,8 @@ public class JobApplicant {
 
 			jobApplicant.setName(firstName, middleName, lastName);
             jobApplicant.setSsn(ssn);
-            jobApplicant.setZipCode(zipCode);
+            jobApplicant.setAddressBasedOnZipCode(zipCode);
+
             jobApplicant.save();
 		}
 	}
@@ -83,7 +84,7 @@ public class JobApplicant {
 		ssn = new Ssn(ssnString);
 	}
 
-	private void setZipCode(String zipCode) throws IOException, URISyntaxException {
+	private void setAddressBasedOnZipCode(String zipCode) throws IOException, URISyntaxException {
 		address = new Address(zipCode);
 	}
 
